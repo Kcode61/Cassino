@@ -4,7 +4,7 @@ export async function girarRoleta() {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_API_URL}/api/cassino/spin/me`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/cassino/spin/me`,
     {
       method: "POST",
       headers: {
@@ -24,7 +24,7 @@ export async function buscarSaldo() {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ export async function buscarSaldo() {
 
 export async function loginResponse(email: string, password: string) {
   const response = await fetch(
-    "http://${process.env.NEXT_PUBLIC_API_URL}/auth/login",
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
     {
       method: "POST",
       headers: {
@@ -69,7 +69,7 @@ export async function registrarResponse(
   name: string,
 ) {
   const response = await fetch(
-    "http://${process.env.NEXT_PUBLIC_API_URL}/auth/register",
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
     {
       method: "POST",
       headers: {
@@ -95,7 +95,7 @@ export async function buscarUsuario() {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -118,7 +118,7 @@ export async function buscarUsuarioAtual() {
   }
 
   const response = await fetch(
-    "http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me",
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -136,14 +136,11 @@ export async function buscarUsuarioAtual() {
 export async function listarUsuarios() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(
-    "http://${process.env.NEXT_PUBLIC_API_URL}/api/users",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  );
+  });
 
   if (!response.ok) {
     throw new Error(`Erro ao listar usuários: ${response.status}`);
@@ -156,7 +153,7 @@ export async function depositar(dadosDoUsuario: SaldoDTO) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance/deposit`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance/deposit`,
     {
       method: "PATCH",
       headers: {
@@ -174,7 +171,7 @@ export async function sacar(dadosDoUsuario: SaldoDTO) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance/withdraw`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance/withdraw`,
     {
       method: "PATCH",
       headers: {
@@ -192,7 +189,7 @@ export async function atualizar(dadosDoUsuario: AtualizarDTO) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
     {
       method: "PATCH",
       headers: {
