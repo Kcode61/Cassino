@@ -3,12 +3,15 @@ import { AtualizarDTO, SaldoDTO } from "@/types/User";
 export async function girarRoleta() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:8080/api/cassino/spin/me`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `http://${process.env.NEXT_PUBLIC_API_URL}/api/cassino/spin/me`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error("Erro ao girar a roleta");
@@ -20,11 +23,14 @@ export async function girarRoleta() {
 export async function buscarSaldo() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:8080/api/users/me/balance`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error("Erro ao buscar saldo");
@@ -34,16 +40,19 @@ export async function buscarSaldo() {
 }
 
 export async function loginResponse(email: string, password: string) {
-  const response = await fetch("http://localhost:8080/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    "http://${process.env.NEXT_PUBLIC_API_URL}/auth/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
+  );
 
   if (!response.ok) {
     throw new Error(`Erro ao fazer login: ${response.status}`);
@@ -59,17 +68,20 @@ export async function registrarResponse(
   password: string,
   name: string,
 ) {
-  const response = await fetch("http://localhost:8080/auth/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    "http://${process.env.NEXT_PUBLIC_API_URL}/auth/register",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        name,
+      }),
     },
-    body: JSON.stringify({
-      email,
-      password,
-      name,
-    }),
-  });
+  );
 
   if (!response.ok) {
     throw new Error(`Erro ao fazer registro: ${response.status}`);
@@ -82,11 +94,14 @@ export async function registrarResponse(
 export async function buscarUsuario() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:8080/api/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     return null;
@@ -102,11 +117,14 @@ export async function buscarUsuarioAtual() {
     return null;
   }
 
-  const response = await fetch("http://localhost:8080/api/users/me", {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    "http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     return null;
@@ -118,11 +136,14 @@ export async function buscarUsuarioAtual() {
 export async function listarUsuarios() {
   const token = localStorage.getItem("token");
 
-  const response = await fetch("http://localhost:8080/api/users", {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    "http://${process.env.NEXT_PUBLIC_API_URL}/api/users",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error(`Erro ao listar usuários: ${response.status}`);
@@ -135,7 +156,7 @@ export async function depositar(dadosDoUsuario: SaldoDTO) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://localhost:8080/api/users/me/balance/deposit`,
+    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance/deposit`,
     {
       method: "PATCH",
       headers: {
@@ -153,7 +174,7 @@ export async function sacar(dadosDoUsuario: SaldoDTO) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(
-    `http://localhost:8080/api/users/me/balance/withdraw`,
+    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me/balance/withdraw`,
     {
       method: "PATCH",
       headers: {
@@ -170,14 +191,17 @@ export async function sacar(dadosDoUsuario: SaldoDTO) {
 export async function atualizar(dadosDoUsuario: AtualizarDTO) {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(`http://localhost:8080/api/users/me`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `http://${process.env.NEXT_PUBLIC_API_URL}/api/users/me`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(dadosDoUsuario),
     },
-    body: JSON.stringify(dadosDoUsuario),
-  });
+  );
 
   return await response.json();
 }
