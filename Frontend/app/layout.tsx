@@ -32,16 +32,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [usuario, setUsuario] = useState<user | null>(null);
-
-  useEffect(() => {
-    async function carregarUsuario() {
-      const dados = await buscarUsuario();
-      setUsuario(dados);
-    }
-
-    carregarUsuario();
-  }, []);
   return (
     <html lang="pt-br" className="h-full antialiased" cz-shortcut-listen="true">
       <body
@@ -49,7 +39,7 @@ export default function RootLayout({
         cz-shortcut-listen="true"
       >
         <Metadata />
-        {usuario && <Sidebar />}
+        <Sidebar />
         {children}
       </body>
     </html>
