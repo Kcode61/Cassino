@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+.font-spacemono {
+  font-family: "Space Mono", monospace;
+}
+.font-poppins {
+  font-family: "Poppins", sans-serif;
+}
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+.font-ultra {
+  font-family: "Ultra", serif;
+}
